@@ -1,0 +1,24 @@
+﻿@Styles.Render("~/Content/Index.css")
+@{
+    ViewBag.Title = "ConohaDoc";
+}
+<div class="VM-add">
+    <p>エンドポイント情報：https://compute.tyo1.conoha.io/v2/{tenant_id}/server </p>
+    <p>
+        <a href="@Url.Action("VMadd")" class="btn btn-primary" role="button">VM追加</a>
+        (512MB,CentOS7.6(64bit))
+    </p>
+    <h3 class=@ViewBag.Color>@ViewBag.Message</h3>
+</div>
+
+<div class="dns">
+    <p>エンドポイント情報：https://dns-service.tyo1.conoha.io/v1/domains </p>
+    <p><a href="https://www.conoha.jp/docs/paas-dns-create-domain.html" class="btn btn-info" role="button">ドメイン作成</a></p>
+</div>
+
+<div class="mail">
+    <p>エンドポイント情報：https://mail-hosting.tyo1.conoha.io/v1/services </p>
+    <a href="https://www.conoha.jp/docs/paas-mail-create-mail-service.html" class="btn btn-info" role="button">メールサービス作成</a>
+</div>
+
+
