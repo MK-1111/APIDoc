@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +9,25 @@ namespace APIDoc.Models
     [JsonObject]
     public class LoginJson
     {
-        public Auth AuthP { get; set; }
-
-        [JsonProperty("tenantId")]
-        public string TenantId { get; set; }
+        public Auth auth { get; set; } = new Auth();
     }
 
     [JsonObject("auth")]
     public class Auth
     {
-        public PasswordCre PassC { get; set; }
+        public PasswordCre passwordCredentials { get; set; } = new PasswordCre();
+
+        [JsonProperty("tenantId")]
+        public string tenantId { get; set; }
     }
 
     [JsonObject("passwordCredentials")]
     public class PasswordCre
     {
         [JsonProperty("username")]
-        public string Username { get; set; }
+        public string username { get; set; }
         [JsonProperty("password")]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 
 }

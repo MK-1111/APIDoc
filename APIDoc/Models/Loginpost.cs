@@ -14,36 +14,63 @@ namespace APIDoc.Models
 {
     public class Loginpost
     {
-        public async Task<string> GetToken(string Username,string Password,string Tenant_id)
+        public async Task<string> GetToken(string Username,string Password,string Tenant_id,int s)
         {
             HttpClient client = new HttpClient();
 
             //リクエスト先のURL
             string url = "https://identity.tyo1.conoha.io/v2.0/tokens";
 
-            var data = new LoginJson();
-            data.AuthP.PassC.Username = Username;
-            data.AuthP.PassC.Password = Password;
-            data.TenantId = Tenant_id;
+            LoginJson data = new LoginJson();
+            data.auth.passwordCredentials.username = Username;
+            data.auth.passwordCredentials.password = Password;
+            data.auth.tenantId = Tenant_id;
 
 
             string json = JsonConvert.SerializeObject(data);
+            Debug.WriteLine(json);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             //APIリクエスト
             var response = await client.PostAsync(url, content);
-            Debug.WriteLine(response);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                return "true";
+                return "none";
             }
 
             string responseForJson = ConvertResponse(response);
-            string news = GetBetweenStrings("\"id\": \"", "\"", responseForJson);
-            return news;
+            TokenJson tokenIn = JsonConvert.DeserializeObject<TokenJson>(responseForJson);
+            string token = tokenIn.Access.Token.Id;
+            string VMurl = tokenIn.Access.Catarog[1].Endpoints[0].PublicURL;
+            string Mailurl= tokenIn.Access.Catarog[6].Endpoints[0].PublicURL;
+            string DNSurl= tokenIn.Access.Catarog[7].Endpoints[0].PublicURL;
+            Debug.WriteLine(tokenIn);
+            Debug.WriteLine(responseForJson);
+            Debug.WriteLine(token);
+            if (s == 1)
+            {
+                return token;
+            }
+            else if (s == 2)
+            {
+                return VMurl;
+            }
+            else if (s == 3)
+            {
+                return Mailurl;
+            }
+            else if(s==4)
+            {
+                return DNSurl;
+            }
+            else
+            {
+                return "none";
+            }
+            
 
         }
 
@@ -114,5 +141,4 @@ namespace APIDoc.Models
             return responseForJson;
         }
     }
-}
 }

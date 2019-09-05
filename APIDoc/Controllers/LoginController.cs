@@ -18,19 +18,24 @@ namespace APIDoc.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<ActionResult> SubmitID(string username,string password,string tenant_id)
         {
             var s= new Loginpost();
-            var result=await s.GetToken(username, password, tenant_id);
-            if (result == null)
+            string result=await s.GetToken(username, password, tenant_id,1);
+            Session["VMurl"]= await s.GetToken(username, password, tenant_id, 2);
+            Session["Mailurl"] = await s.GetToken(username, password, tenant_id, 3);
+            Session["DNSurl"] = await s.GetToken(username, password, tenant_id, 4);
+            if (result == "none")
             {
                 TempData["alert"]= "Failed";
                 return RedirectToAction("Index", "Login");
             }
             else {
-                TempData["Token"] = result;
-                TempData["User"] = username;
-                TempData["Pass"] = password;
+                Session["Token"] = result;
+                Session["User"] = username;
+                Session["Pass"] = password;
+                Session["Tenant"] = tenant_id;
                 return RedirectToAction("Index","Home");
             }
             

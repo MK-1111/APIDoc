@@ -12,15 +12,19 @@ namespace APIDoc.Controllers
     {
         public ActionResult Index()
         {
-                ViewBag.Message = TempData["flag"];
+            ViewBag.VMurl = Session["VMurl"];
+            ViewBag.Mailurl = Session["Mailurl"];
+            ViewBag.DNSurl = Session["DNSurl"];
+            ViewBag.Message = TempData["flag"];
             ViewBag.Color = TempData["color"];
+            ViewBag.Tenant = Session["Tenant"];
             return View();
         }
 
         public async Task<ActionResult> VMadd()
         {
             APIpost postAC = new APIpost();
-            bool x=await postAC.VMAdd(TempData["Token"]);
+            bool x=await postAC.VMAdd(Session["Token"].ToString(),Session["Tenant"].ToString());
             if (x == true)
             {
                 TempData["flag"] = "Successful";
@@ -32,7 +36,7 @@ namespace APIDoc.Controllers
                 TempData["color"] = "text-danger";
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
 
 
         }

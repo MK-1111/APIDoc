@@ -130,6 +130,7 @@
     <Compile Include="Models\APIpost.cs" />
     <Compile Include="Models\LoginJson.cs" />
     <Compile Include="Models\Loginpost.cs" />
+    <Compile Include="Models\TokenJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
