@@ -4,15 +4,26 @@
     ViewBag.User = ViewBag.user;
     Layout="~/Views/Shared/_Layout2.cshtml";
 }
-<div class="VM-add">
-    <p>トークン：<span class="text-info">@ViewBag.Token</span></p>
-    <p>エンドポイント情報：<span class="text-primary">@ViewBag.VMurl/servers</span></p>
-    <p>
-        <a href="@Url.Action("VMadd")" class="btn btn-primary" role="button">VM追加</a>
-        (512MB,CentOS7.6(64bit))
-    </p>
-    <h3 class=@ViewBag.Color>@ViewBag.Message</h3>
-</div>
+    <div class="VM-add">
+        <p>トークン：<span class="text-info">@ViewBag.Token</span></p>
+        <p>エンドポイント情報：<span class="text-primary">@ViewBag.VMurl/servers</span></p>
+        @using (Html.BeginForm("VMadd", "Home", FormMethod.Post, new { @id = "form2" }))
+        {
+            <p>
+                <label for="name">name_tag</label><input type="text" id="name" class="form-control" placeholder="name_tag" name="name">
+                <small id="namelHelp" class="form-text text-muted">半角英数字、「 - 」、「 _ 」のみを許可。文字数：255文字以下</small>
+            </p>
+            <p>
+                <label for="pass">password</label><input type="password" id="pass" class="form-control" placeholder="password" name="pass">
+                                                  <small id="namelHelp" class="form-text text-muted">半角英大文字と、半角英小文字と、半角数字または記号の組み合わせ以外はエラー。文字数：9文字以上～70文字以内<br />使用可能の記号 ⇒ ! # $ % & ? ” ' = + - _ { } [ ] ^ ~ : ; ( ) . , / | \ * @@</small>
+            </p>
+        }
+        <p>
+            <a href="javascript:form2.submit();" class="btn btn-primary">VM追加</a>
+            (512MB,CentOS7.6(64bit))
+        </p>
+        <h3 class=@ViewBag.Color>@ViewBag.Message</h3>
+    </div>
 
 <div class="dns">
     <p>エンドポイント情報：<span class="text-primary">@ViewBag.DNSurl/domains </span></p>

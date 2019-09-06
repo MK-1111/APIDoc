@@ -23,10 +23,10 @@ namespace APIDoc.Controllers
             return View();
         }
 
-        public async Task<ActionResult> VMadd()
+        public async Task<ActionResult> VMadd(string name,string pass)
         {
             APIpost postAC = new APIpost();
-            bool x=await postAC.VMAdd(Session["Token"].ToString(),Session["VMurl"].ToString());
+            bool x=await postAC.VMAdd(Session["Token"].ToString(),Session["VMurl"].ToString(),name,pass);
             if (x == true)
             {
                 TempData["flag"] = "Successful";

@@ -131,10 +131,10 @@
     <Compile Include="Models\LoginJson.cs" />
     <Compile Include="Models\Loginpost.cs" />
     <Compile Include="Models\TokenJson.cs" />
+    <Compile Include="Models\VMJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\icon_158350_256.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -212,6 +212,7 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

@@ -14,14 +14,19 @@ namespace APIDoc.Models
 {
     public class APIpost
     {
-        public async Task<bool> VMAdd(string token,string urls)
+        public async Task<bool> VMAdd(string token,string urls,string name,string pass)
         {
             HttpClient client = new HttpClient();
 
             //リクエスト先のURL
             string url = urls+ "/servers";
 
-            var json = "{\"server\":{ \"imageRef\" : \"5a026e16-1444-47e4-a3d1-300424c701a7\", \"flavorRef\" : \"d92b02ce-9a4f-4544-8d7f-ae8380bc08e7\" }}";
+            VMJson data = new VMJson();
+            data.server.ImageRef="5a026e16-1444-47e4-a3d1-300424c701a7";
+            data.server.FlavorRef = "d92b02ce-9a4f-4544-8d7f-ae8380bc08e7";
+            data.server.metadata.Name_tag = name;
+            data.server.AdminPass = pass;
+            string json = JsonConvert.SerializeObject(data);
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
