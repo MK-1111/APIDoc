@@ -18,13 +18,15 @@ namespace APIDoc.Controllers
             ViewBag.Message = TempData["flag"];
             ViewBag.Color = TempData["color"];
             ViewBag.Tenant = Session["Tenant"];
+            ViewBag.Token = Session["Token"];
+            ViewBag.user = Session["User"];
             return View();
         }
 
         public async Task<ActionResult> VMadd()
         {
             APIpost postAC = new APIpost();
-            bool x=await postAC.VMAdd(Session["Token"].ToString(),Session["Tenant"].ToString());
+            bool x=await postAC.VMAdd(Session["Token"].ToString(),Session["VMurl"].ToString());
             if (x == true)
             {
                 TempData["flag"] = "Successful";

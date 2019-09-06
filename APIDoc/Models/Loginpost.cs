@@ -14,12 +14,12 @@ namespace APIDoc.Models
 {
     public class Loginpost
     {
-        public async Task<string> GetToken(string Username,string Password,string Tenant_id,int s)
+        public async Task<string> GetToken(string Username,string Password,string Tenant_id,string endpoint,int s)
         {
             HttpClient client = new HttpClient();
 
             //リクエスト先のURL
-            string url = "https://identity.tyo1.conoha.io/v2.0/tokens";
+            string url = endpoint+"/tokens";
 
             LoginJson data = new LoginJson();
             data.auth.passwordCredentials.username = Username;

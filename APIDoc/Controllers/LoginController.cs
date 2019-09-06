@@ -19,13 +19,13 @@ namespace APIDoc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SubmitID(string username,string password,string tenant_id)
+        public async Task<ActionResult> SubmitID(string username,string password,string tenant_id,string endpoint)
         {
             var s= new Loginpost();
-            string result=await s.GetToken(username, password, tenant_id,1);
-            Session["VMurl"]= await s.GetToken(username, password, tenant_id, 2);
-            Session["Mailurl"] = await s.GetToken(username, password, tenant_id, 3);
-            Session["DNSurl"] = await s.GetToken(username, password, tenant_id, 4);
+            string result=await s.GetToken(username, password, tenant_id,endpoint,1);
+            Session["VMurl"]= await s.GetToken(username, password, tenant_id,endpoint, 2);
+            Session["Mailurl"] = await s.GetToken(username, password, tenant_id,endpoint, 3);
+            Session["DNSurl"] = await s.GetToken(username, password, tenant_id,endpoint, 4);
             if (result == "none")
             {
                 TempData["alert"]= "Failed";

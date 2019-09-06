@@ -14,12 +14,12 @@ namespace APIDoc.Models
 {
     public class APIpost
     {
-        public async Task<bool> VMAdd(string token,string tenant)
+        public async Task<bool> VMAdd(string token,string urls)
         {
             HttpClient client = new HttpClient();
 
             //リクエスト先のURL
-            string url = $"https://compute.tyo1.conoha.io/v2/{tenant}/servers";
+            string url = urls+ "/servers";
 
             var json = "{\"server\":{ \"imageRef\" : \"5a026e16-1444-47e4-a3d1-300424c701a7\", \"flavorRef\" : \"d92b02ce-9a4f-4544-8d7f-ae8380bc08e7\" }}";
 

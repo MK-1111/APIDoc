@@ -1,8 +1,11 @@
 ﻿@Styles.Render("~/Content/Index.css")
 @{
     ViewBag.Title = "ConohaDoc";
+    ViewBag.User = ViewBag.user;
+    Layout="~/Views/Shared/_Layout2.cshtml";
 }
 <div class="VM-add">
+    <p>トークン：<span class="text-info">@ViewBag.Token</span></p>
     <p>エンドポイント情報：<span class="text-primary">@ViewBag.VMurl/servers</span></p>
     <p>
         <a href="@Url.Action("VMadd")" class="btn btn-primary" role="button">VM追加</a>

@@ -5,14 +5,15 @@
 
     <div class="login">
         <div class="form-group">
-        @using (Html.BeginForm("SubmitID", "Login", FormMethod.Post, new { @id = "form1"}))
-        { 
-        <p><label for="user">username</label><input type="text" id="user" class="form-control"  placeholder="username" name="username"></p>
-        <p><label for="pass">password</label><input type="password" id="pass" class="form-control" placeholder="password" name="password"></p>
-        <p><label for="tenant">tenant_id</label><input type="text" id="tenant" class="form-control" placeholder="tenant_id" name="tenant_id"></p>
-        }
-        <a href="javascript:form1.submit();" class="btn btn-primary">Login</a>
-         </div>
+            @using (Html.BeginForm("SubmitID", "Login", FormMethod.Post, new { @id = "form1" }))
+            {
+                <p><label for="user">username</label><input type="text" id="user" class="form-control" placeholder="username" name="username"></p>
+                <p><label for="pass">password</label><input type="password" id="pass" class="form-control" placeholder="password" name="password"></p>
+                <p><label for="tenant">tenant_id</label><input type="text" id="tenant" class="form-control" placeholder="tenant_id" name="tenant_id"></p>
+                <p><label for="url">endpoint-identity</label><input type="text" id="url" class="form-control" placeholder="endpoint-identity" name="endpoint"></p>
+            }
+            <a href="javascript:form1.submit();" class="btn btn-primary">Login</a>
+        </div>
 
         <h3 class="text-danger">@ViewBag.Alert</h3>
     </div>
