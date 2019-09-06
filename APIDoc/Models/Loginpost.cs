@@ -28,49 +28,52 @@ namespace APIDoc.Models
 
 
             string json = JsonConvert.SerializeObject(data);
-            Debug.WriteLine(json);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             //APIリクエスト
-            var response = await client.PostAsync(url, content);
+            try
+            {
+                var response = await client.PostAsync(url, content);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return "none";
+                }
+
+                string responseForJson = ConvertResponse(response);
+                TokenJson tokenIn = JsonConvert.DeserializeObject<TokenJson>(responseForJson);
+                string token = tokenIn.Access.Token.Id;
+                string VMurl = tokenIn.Access.Catarog[1].Endpoints[0].PublicURL;
+                string Mailurl = tokenIn.Access.Catarog[6].Endpoints[0].PublicURL;
+                string DNSurl = tokenIn.Access.Catarog[7].Endpoints[0].PublicURL;
+                if (s == 1)
+                {
+                    return token;
+                }
+                else if (s == 2)
+                {
+                    return VMurl;
+                }
+                else if (s == 3)
+                {
+                    return Mailurl;
+                }
+                else if (s == 4)
+                {
+                    return DNSurl;
+                }
+                else
+                {
+                    return "none";
+                }
+            }
+            catch (InvalidOperationException)
             {
                 return "none";
             }
-
-            string responseForJson = ConvertResponse(response);
-            TokenJson tokenIn = JsonConvert.DeserializeObject<TokenJson>(responseForJson);
-            string token = tokenIn.Access.Token.Id;
-            string VMurl = tokenIn.Access.Catarog[1].Endpoints[0].PublicURL;
-            string Mailurl= tokenIn.Access.Catarog[6].Endpoints[0].PublicURL;
-            string DNSurl= tokenIn.Access.Catarog[7].Endpoints[0].PublicURL;
-            Debug.WriteLine(tokenIn);
-            Debug.WriteLine(responseForJson);
-            Debug.WriteLine(token);
-            if (s == 1)
-            {
-                return token;
-            }
-            else if (s == 2)
-            {
-                return VMurl;
-            }
-            else if (s == 3)
-            {
-                return Mailurl;
-            }
-            else if(s==4)
-            {
-                return DNSurl;
-            }
-            else
-            {
-                return "none";
-            }
-            
 
         }
 
